@@ -38,8 +38,8 @@ namespace APP.Services
                 Score = u.Score,
                 IsActive = u.IsActive,
                 Address = u.Address,
-                GroupTitle = u.Group != null ? u.Group.Title : "", // Flatten relation
-                Roles = string.Join(", ", u.UserRoles.Select(ur => ur.Role.Name)) // Flatten relation
+                GroupTitle = u.Group != null ? u.Group.Title : "", 
+                //Roles = string.Join(", ", u.UserRoles.Select(ur => ur.Role.Name))
             }).ToList();
         }
 
@@ -63,7 +63,7 @@ namespace APP.Services
                 IsActive = entity.IsActive,
                 Address = entity.Address,
                 GroupTitle = entity.Group != null ? entity.Group.Title : "",
-                Roles = string.Join(", ", entity.UserRoles.Select(ur => ur.Role.Name))
+                //Roles = string.Join(", ", entity.UserRoles.Select(ur => ur.Role.Name))
             };
         }
 
@@ -87,7 +87,7 @@ namespace APP.Services
                 CountryId = entity.CountryId,
                 CityId = entity.CityId,
                 GroupId = entity.GroupId,
-                RoleIds = entity.RoleIds // Use the NotMapped property to get the List<int>
+                //RoleIds = entity.RoleIds // Use the NotMapped property to get the List<int>
             };
         }
 
@@ -99,12 +99,8 @@ namespace APP.Services
             if (string.IsNullOrWhiteSpace(request.Password))
                 return Error("Password is required for a new user!");
 
-            // ---
-            // TODO: Implement password hashing here! Do not store plain text.
-            // Example: var hashedPassword = _myAuthService.HashPassword(request.Password);
-            // ---
-            var hashedPassword = request.Password; // Placeholder - THIS IS INSECURE
 
+            var hashedPassword = request.Password; 
             var entity = new User
             {
                 UserName = request.UserName.Trim(),
@@ -155,15 +151,12 @@ namespace APP.Services
             entity.CountryId = request.CountryId;
             entity.CityId = request.CityId;
             entity.GroupId = request.GroupId;
-            entity.RoleIds = request.RoleIds; // Re-add new roles
+            entity.RoleIds = request.RoleIds;
 
             // Only update password if a new one was provided
             if (!string.IsNullOrWhiteSpace(request.Password))
             {
-                // ---
-                // TODO: Implement password hashing here!
-                // ---
-                entity.Password = request.Password; // Placeholder - THIS IS INSECURE
+                entity.Password = request.Password; 
             }
 
             Update(entity);

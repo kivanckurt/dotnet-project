@@ -17,6 +17,7 @@ builder.Services.AddScoped<IService<UserRequest, UserResponse>, UserService>();
 
 
 
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

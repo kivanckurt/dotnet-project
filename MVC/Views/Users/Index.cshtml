@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GroupResponse>
+﻿@model IEnumerable<UserResponse>
 
 @* Generated from Custom MVC Template. *@
 @* Model namespace using directive should be added to _ViewImports.cshtml. *@
@@ -12,7 +12,7 @@
     They carry extra data other than the model from a controller action to its view, or between views.
     The value assigned will be shown in Views\Shared\_Layout.cshtml view's title tag of the head tag.
     */
-    ViewData["Title"] = "Group List";
+    ViewData["Title"] = "User List";
 }
 
 <div class="@containerDivClass">
@@ -44,11 +44,34 @@
                 <thead class="table-secondary">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Title)
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.UserNames)
+                            @Html.DisplayNameFor(model => model.LastName)
                         </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Gender)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BirthDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.RegistrationDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Score)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IsActive)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+
                         <th></th>
                     </tr>
                 </thead>
@@ -56,11 +79,34 @@
 		            @foreach (var item in Model) {
 				        <tr>
 					        <td>
-						        @Html.DisplayFor(modelItem => item.Title)
+						        @Html.DisplayFor(modelItem => item.UserName)
 					        </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UserNames)
-                            </td>
+
+					        <td>
+						        @Html.DisplayFor(modelItem => item.FirstName)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.LastName)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.Gender)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.BirthDate)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.RegistrationDate)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.Score)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.IsActive)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.Address)
+					        </td>
+	
 					        <td class="text-end w-25">
 						        <a asp-action="Details" asp-route-id="@item.Id">Details</a>&nbsp;|&nbsp;
 						        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>&nbsp;|&nbsp;

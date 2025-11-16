@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GroupResponse>
+﻿@model IEnumerable<RoleResponse>
 
 @* Generated from Custom MVC Template. *@
 @* Model namespace using directive should be added to _ViewImports.cshtml. *@
@@ -12,7 +12,7 @@
     They carry extra data other than the model from a controller action to its view, or between views.
     The value assigned will be shown in Views\Shared\_Layout.cshtml view's title tag of the head tag.
     */
-    ViewData["Title"] = "Group List";
+    ViewData["Title"] = "Role List";
 }
 
 <div class="@containerDivClass">
@@ -44,10 +44,7 @@
                 <thead class="table-secondary">
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Title)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.UserNames)
+                            @Html.DisplayNameFor(model => model.Name)
                         </th>
                         <th></th>
                     </tr>
@@ -56,11 +53,8 @@
 		            @foreach (var item in Model) {
 				        <tr>
 					        <td>
-						        @Html.DisplayFor(modelItem => item.Title)
+						        @Html.DisplayFor(modelItem => item.Name)
 					        </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UserNames)
-                            </td>
 					        <td class="text-end w-25">
 						        <a asp-action="Details" asp-route-id="@item.Id">Details</a>&nbsp;|&nbsp;
 						        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>&nbsp;|&nbsp;

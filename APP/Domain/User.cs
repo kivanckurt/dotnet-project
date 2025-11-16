@@ -54,9 +54,7 @@ namespace APP.Domain
 
         public List<UserRole> UserRoles { get; set; } = new List<UserRole>();
 
-        /// <summary>
-        /// Helper property to manage Role IDs, just like your Product/Store example.
-        /// </summary>
+
         [NotMapped]
         public List<int> RoleIds
         {

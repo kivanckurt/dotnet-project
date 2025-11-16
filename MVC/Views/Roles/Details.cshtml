@@ -1,4 +1,4 @@
-﻿@model GroupResponse
+﻿@model RoleResponse
 
 @* Generated from Custom MVC Template. *@
 @* Model namespace using directive should be added to _ViewImports.cshtml. *@
@@ -12,7 +12,7 @@
     They carry extra data other than the model from a controller action to its view, or between views.
     The value assigned will be shown in Views\Shared\_Layout.cshtml view's title tag of the head tag.
     */
-    ViewData["Title"] = "Group Details";
+    ViewData["Title"] = "Role Details";
 }
 
 <div class="@containerDivClass">
@@ -34,10 +34,10 @@
     }
     <div class="row mb-3">
         <div class="col-2 fw-bold">
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Name)
         </div>
         <div class="col-10">
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Name)
         </div>
     </div>
 
@@ -53,15 +53,7 @@
         </div>
     </div>
     *@
-        <div class="row mb-3">
-            <div class="col-2 fw-bold">
-                @Html.DisplayNameFor(model => model.UserNames)
-            </div>
-            <div class="col-10">
-                @* This will display the users as a comma-separated string *@
-                @Html.DisplayFor(model => model.UserNames)
-            </div>
-        </div>
+
     <hr /> 
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>&nbsp;|&nbsp;
     <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>&nbsp;|&nbsp;
