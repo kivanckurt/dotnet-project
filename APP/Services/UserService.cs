@@ -38,7 +38,15 @@ namespace APP.Services
                 Score = u.Score,
                 IsActive = u.IsActive,
                 Address = u.Address,
-                GroupTitle = u.Group != null ? u.Group.Title : "", 
+
+                FullName = u.FirstName + " " + u.LastName,
+
+                GenderF = u.Gender.ToString(), 
+                BirthDateF = u.BirthDate.HasValue ? u.BirthDate.Value.ToString("MM/dd/yyyy") : string.Empty,
+
+                RegistrationDateF = u.RegistrationDate.ToShortDateString(),
+                ScoreF = u.Score.ToString("N1"), 
+                IsActiveF = u.IsActive ? "Active" : "Inactive",
                 //Roles = string.Join(", ", u.UserRoles.Select(ur => ur.Role.Name))
             }).ToList();
         }
@@ -62,7 +70,12 @@ namespace APP.Services
                 Score = entity.Score,
                 IsActive = entity.IsActive,
                 Address = entity.Address,
-                GroupTitle = entity.Group != null ? entity.Group.Title : "",
+                FullName = entity.FirstName + " " + entity.LastName,
+                GenderF = entity.Gender.ToString(),
+                BirthDateF = entity.BirthDate.HasValue ? entity.BirthDate.Value.ToString("MM/dd/yyyy") : string.Empty,
+                RegistrationDateF = entity.RegistrationDate.ToShortDateString(),
+                ScoreF = entity.Score.ToString("N1"),
+                IsActiveF = entity.IsActive ? "Active" : "Inactive",
                 //Roles = string.Join(", ", entity.UserRoles.Select(ur => ur.Role.Name))
             };
         }

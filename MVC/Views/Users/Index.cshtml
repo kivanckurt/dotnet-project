@@ -46,12 +46,8 @@
                         <th>
                             @Html.DisplayNameFor(model => model.UserName)
                         </th>
-
                         <th>
-                            @Html.DisplayNameFor(model => model.FirstName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.LastName)
+                            @Html.DisplayNameFor(model => model.FullName)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Gender)
@@ -67,10 +63,7 @@
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.IsActive)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Address)
-                        </th>
+                        </th
 
                         <th></th>
                     </tr>
@@ -81,31 +74,25 @@
 					        <td>
 						        @Html.DisplayFor(modelItem => item.UserName)
 					        </td>
+                            <td>
+						        @Html.DisplayFor(modelItem => item.FullName)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.GenderF)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.BirthDateF)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.RegistrationDateF)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.ScoreF)
+					        </td>
+					        <td>
+						        @Html.DisplayFor(modelItem => item.IsActiveF)
+					        </td>
 
-					        <td>
-						        @Html.DisplayFor(modelItem => item.FirstName)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.LastName)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.Gender)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.BirthDate)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.RegistrationDate)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.Score)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.IsActive)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.Address)
-					        </td>
 	
 					        <td class="text-end w-25">
 						        <a asp-action="Details" asp-route-id="@item.Id">Details</a>&nbsp;|&nbsp;

@@ -8,7 +8,7 @@ namespace APP.Domain
     public class Role : Entity
     {
         [Required]
-        [StringLength(100)]
+        [StringLength(25)]
         public string Name { get; set; }
 
         // Navigation Property: Many Roles have many Users (via UserRole)

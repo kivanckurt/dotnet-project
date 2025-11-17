@@ -16,19 +16,22 @@ namespace APP.Models
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
+        [DisplayName("Gender")]
         public Gender Gender { get; set; }
 
         [DisplayName("Birth Date")]
         public DateTime? BirthDate { get; set; }
 
-        [DisplayName("Registered")]
+        [DisplayName("Registration Date")]
         public DateTime RegistrationDate { get; set; }
 
+        [DisplayName("Score")]
         public decimal Score { get; set; }
 
         [DisplayName("Active")]
         public bool IsActive { get; set; }
 
+        [DisplayName("Address")]
         public string Address { get; set; }
 
         [DisplayName("Group")]
@@ -36,5 +39,23 @@ namespace APP.Models
 
         [DisplayName("Roles")]
         public string Roles { get; set; }
+
+        [DisplayName("Full Name")]
+        public string FullName { get; set; }
+
+        [DisplayName("Gender")]
+        public string GenderF { get; set; }
+
+        [DisplayName("Birth Date")]
+        public string BirthDateF { get; set; }
+
+        [DisplayName("Registration Date")]
+        public string RegistrationDateF { get; set; }
+
+        [DisplayName("Score")]
+        public string ScoreF { get; set; }
+
+        [DisplayName("Active")]
+        public string IsActiveF { get; set; }
     }
 }
