@@ -106,11 +106,11 @@ namespace APP.Services
 
         public CommandResponse Create(UserRequest request)
         {
-            if (Query().Any(u => u.UserName == request.UserName.Trim()))
+            if (Query().Any(u => u.UserName == request.UserName.Trim() && u.IsActive))
                 return Error("User with the same username already exists!");
 
-            if (string.IsNullOrWhiteSpace(request.Password))
-                return Error("Password is required for a new user!");
+            //if (string.IsNullOrWhiteSpace(request.Password))
+            //    return Error("Password is required for a new user!");
 
 
             var hashedPassword = request.Password; 
@@ -138,12 +138,12 @@ namespace APP.Services
 
         public CommandResponse Update(UserRequest request)
         {
-            if (Query().Any(u => u.Id != request.Id && u.UserName == request.UserName.Trim()))
+            if (Query().Any(u => u.Id != request.Id && u.UserName == request.UserName.Trim() && u.IsActive))
                 return Error("User with the same username already exists!");
 
             // Get the entity with tracking enabled and include relations to be updated
             var entity = Query(false)
-                .Include(u => u.UserRoles)
+                
                 .SingleOrDefault(u => u.Id == request.Id);
 
             if (entity == null)
@@ -167,10 +167,10 @@ namespace APP.Services
             entity.RoleIds = request.RoleIds;
 
             // Only update password if a new one was provided
-            if (!string.IsNullOrWhiteSpace(request.Password))
-            {
-                entity.Password = request.Password; 
-            }
+            //if (!string.IsNullOrWhiteSpace(request.Password))
+            //{
+            //    entity.Password = request.Password; 
+            //}
 
             Update(entity);
             return Success("User updated successfully.", entity.Id);
@@ -180,7 +180,7 @@ namespace APP.Services
         {
             // Get entity with tracking and include join tables for cascading delete
             var entity = Query(false)
-                .Include(u => u.UserRoles)
+                
                 .SingleOrDefault(u => u.Id == id);
 
             if (entity == null)

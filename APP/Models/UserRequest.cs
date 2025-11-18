@@ -16,7 +16,7 @@ namespace APP.Models
 
         // Password is only required on Create. 
         // On Edit, a null/empty value means "don't change".
-        [StringLength(100, MinimumLength = 6, ErrorMessage = "{0} must be at least {2} characters!")]
+        [Required, StringLength(100, MinimumLength = 6, ErrorMessage = "{0} must be at least {2} characters!")]
         public string Password { get; set; }
 
         [StringLength(100)]
