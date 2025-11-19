@@ -77,8 +77,6 @@
 				<span asp-validation-for="BirthDate" class="text-danger"></span>
 			</div>
         </div>
-
-
         <div class="row mb-3">
 			<label asp-for="IsActive" class="col-2 col-form-label fw-bold"></label>
 			<div class="col-10 pt-2">
@@ -87,24 +85,10 @@
         </div>
         <div class="row mb-3">
             <label asp-for="Address" class="col-2 col-form-label fw-bold"></label>
-			<div class="col-10">
-			    <input asp-for="Address" class="form-control" />
-				<span asp-validation-for="Address" class="text-danger"></span>
-			</div>
-        </div>
-        <div class="row mb-3">
-            <label asp-for="CountryId" class="col-2 col-form-label fw-bold"></label>
-			<div class="col-10">
-			    <input asp-for="CountryId" class="form-control" />
-				<span asp-validation-for="CountryId" class="text-danger"></span>
-			</div>
-        </div>
-        <div class="row mb-3">
-            <label asp-for="CityId" class="col-2 col-form-label fw-bold"></label>
-			<div class="col-10">
-			    <input asp-for="CityId" class="form-control" />
-				<span asp-validation-for="CityId" class="text-danger"></span>
-			</div>
+            <div class="col-10">
+                <textarea asp-for="Address" class="form-control"></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
         </div>
         <div class="row mb-3">
             <label asp-for="GroupId" class="col-2 col-form-label fw-bold"></label>

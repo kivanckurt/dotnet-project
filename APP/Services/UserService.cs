@@ -76,6 +76,7 @@ namespace APP.Services
                 RegistrationDateF = entity.RegistrationDate.ToShortDateString(),
                 ScoreF = entity.Score.ToString("N1"),
                 IsActiveF = entity.IsActive ? "Active" : "Inactive",
+                GroupTitle=entity?.Group?.Title
                 //Roles = string.Join(", ", entity.UserRoles.Select(ur => ur.Role.Name))
             };
         }
