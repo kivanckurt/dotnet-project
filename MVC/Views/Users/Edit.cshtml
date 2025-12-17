@@ -1,4 +1,5 @@
 ﻿@using APP.Domain
+
 @model UserRequest
 
 @* Generated from Custom MVC Template. *@
@@ -7,6 +8,9 @@
 @{
     var containerDivClass = "container"; // "container-fluid" can be used for full width
     var dateTimePickerClass = "datetimepicker"; // "jquery-datetimepicker" must be added as client side library
+
+    // we should hide some fields from the users without the Admin role for their own account editing
+    var rowDivStyle = User.IsInRole("Admin") ? "" : "display:none";
 }
 @{
     /*
@@ -24,69 +28,78 @@
 
 @if (Model is not null)
 {
-<div class="@containerDivClass">
-    @if (TempData["Message"] is not null)
-    {
-    /*
-    TempData is used to carry extra data to the redirected controller action's view.
-    */
-    <p class="text-danger">
-        @TempData["Message"]
-    </p>
-    }
-    <form asp-action="Edit" autocomplete="off" enctype="multipart/form-data">
-	    @Html.AntiForgeryToken()
-        <div asp-validation-summary="All" class="text-danger"></div> @* Use ModelOnly instead of All to see only service response messages in validation summary *@
-        <div class="row mb-3">
-            <label asp-for="UserName" class="col-2 col-form-label fw-bold"></label>
-	        <div class="col-10">
-	            <input asp-for="UserName" class="form-control" />
-		        <span asp-validation-for="UserName" class="text-danger"></span>
-	        </div>
-        </div>
-        <div class="row mb-3">
-            <label asp-for="Password" class="col-2 col-form-label fw-bold"></label>
-	        <div class="col-10">
-	            <input asp-for="Password" class="form-control" />
-		        <span asp-validation-for="Password" class="text-danger"></span>
-	        </div>
-        </div>
-        <div class="row mb-3">
-            <label asp-for="FirstName" class="col-2 col-form-label fw-bold"></label>
-	        <div class="col-10">
-	            <input asp-for="FirstName" class="form-control" />
-		        <span asp-validation-for="FirstName" class="text-danger"></span>
-	        </div>
-        </div>
-        <div class="row mb-3">
-            <label asp-for="LastName" class="col-2 col-form-label fw-bold"></label>
-	        <div class="col-10">
-	            <input asp-for="LastName" class="form-control" />
-		        <span asp-validation-for="LastName" class="text-danger"></span>
-	        </div>
-        </div>
-        <div class="row mb-3">
-            <label asp-for="Gender" class="col-2 col-form-label fw-bold"></label>
-	        <div class="col-10">
-                    <select asp-for="Gender" class="form-select" asp-items="Html.GetEnumSelectList<Gender>()"></select>
-                    <span asp-validation-for="Gender" class="text-danger"></span>
-	        </div>
-        </div>
-        <div class="row mb-3">
-            <label asp-for="BirthDate" class="col-2 col-form-label fw-bold"></label>
-	        <div class="col-10">
-		        <input asp-for="BirthDate" class="form-control @dateTimePickerClass" type="text" />
-		        <span asp-validation-for="BirthDate" class="text-danger"></span>
-	        </div>
-        </div>
-
-
-        <div class="row mb-3">
-		    <label asp-for="IsActive" class="col-2 col-form-label fw-bold"></label>
-		    <div class="col-10 pt-2">
-			    <input class="form-check-input" asp-for="IsActive" />
+    <div class="@containerDivClass">
+        @if (TempData["Message"] is not null)
+        {
+            /*
+            TempData is used to carry extra data to the redirected controller action's view.
+            */
+            <p class="text-danger">
+                @TempData["Message"]
+            </p>
+        }
+        <form asp-action="Edit" autocomplete="off">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div> @* Use ModelOnly instead of All to see only service response messages in validation summary *@
+            <input type="hidden" asp-for="Id" />
+            <div class="row mb-3">
+                <label asp-for="UserName" class="col-2 col-form-label fw-bold"></label>
+                <div class="col-10">
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
             </div>
-        </div>
+            <div class="row mb-3">
+                <label asp-for="Password" class="col-2 col-form-label fw-bold"></label>
+                <div class="col-10">
+                    <input asp-for="Password" class="form-control" type="password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="FirstName" class="col-2 col-form-label fw-bold"></label>
+                <div class="col-10">
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="LastName" class="col-2 col-form-label fw-bold"></label>
+                <div class="col-10">
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="Gender" class="col-2 col-form-label fw-bold"></label>
+                <div class="col-10">
+                    <select asp-for="Gender" class="form-select">
+                        <option value="@((int)Genders.Woman)">@Genders.Woman</option>
+                        <option value="@((int)Genders.Man)">@Genders.Man</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="BirthDate" class="col-2 col-form-label fw-bold"></label>
+                <div class="col-10">
+                    <input asp-for="BirthDate" class="form-control @dateTimePickerClass" type="text" />
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3" style="@rowDivStyle">
+                <label asp-for="Score" class="col-2 col-form-label fw-bold"></label>
+                <div class="col-10">
+                    <input asp-for="Score" class="form-control" />
+                    <span asp-validation-for="Score" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3" style="@rowDivStyle">
+                <label asp-for="IsActive" class="col-2 col-form-label fw-bold"></label>
+                <div class="col-10 pt-2">
+                    <input class="form-check-input" asp-for="IsActive" />
+                </div>
+            </div>
             <div class="row mb-3">
                 <label asp-for="Address" class="col-2 col-form-label fw-bold"></label>
                 <div class="col-10">
@@ -94,48 +107,46 @@
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
             </div>
-        <div class="row mb-3">
-            <label asp-for="GroupId" class="col-2 col-form-label fw-bold"></label>
-            <div class="col-10">
-	            <select asp-for="GroupId" class="form-select" asp-items="ViewBag.GroupId">
-		            <option value="">-- Select --</option>
-	            </select>
-	            <span asp-validation-for="GroupId" class="text-danger"></span>
+            <div class="row mb-3" style="@rowDivStyle">
+                <label asp-for="GroupId" class="col-2 col-form-label fw-bold"></label>
+                <div class="col-10">
+                    <select asp-for="GroupId" class="form-select" asp-items="ViewBag.GroupId">
+                        <option value="">-- Select --</option>
+                    </select>
+                    <span asp-validation-for="GroupId" class="text-danger"></span>
+                </div>
             </div>
-        </div>
-        <input type="hidden" asp-for="Id" />
 
-@* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. *@
-        @*
-        <div class="row mb-3">
-            <label asp-for="EntityIds" class="col-2 col-form-label fw-bold"></label>
-	        <div class="col-10">
-		        <select multiple asp-for="EntityIds" class="form-select" asp-items="ViewBag.EntityIds"></select>
-		        <span asp-validation-for="EntityIds" class="text-danger"></span>
-	        </div>
-        </div>
-        *@
 
-        <hr />
-        <div class="row mb-3">
-	        <div class="offset-2 col-10">
-                <button type="submit" class="btn btn-primary">Save</button>
-		        &nbsp;&nbsp;
-                <button type="reset" class="btn btn-outline-primary">Reset</button>
-		        &nbsp;&nbsp;
-                <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
-                &nbsp;&nbsp;
-		        <a asp-action="Index">Back to List</a>
-	        </div>
-        </div>
-    </form>
-</div>
+            @* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. *@
+
+            <div class="row mb-3" style="@rowDivStyle">
+                <label asp-for="RoleIds" class="col-2 col-form-label fw-bold"></label>
+                <div class="col-10">
+                    <select multiple asp-for="RoleIds" class="form-select" asp-items="ViewBag.RoleIds"></select>
+                    <span asp-validation-for="RoleIds" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="row mb-3">
+                <div class="offset-2 col-10">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    &nbsp;&nbsp;
+                    <button type="reset" class="btn btn-outline-primary">Reset</button>
+                    &nbsp;&nbsp;
+                    <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                    &nbsp;&nbsp;
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
 }
 
 @section Scripts {
     @* Can be uncommented to use client-side validation using jQuery instead of server-side validation. *@
     @*<partial name="_ValidationScriptsPartial" />*@
-    
+
     @* https://xdsoft.net/jqplugins/datetimepicker *@
     <link href="~/lib/jquery-datetimepicker/jquery.datetimepicker.min.css" rel="stylesheet" />
     <script src="~/lib/jquery-datetimepicker/jquery.datetimepicker.full.min.js"></script>
@@ -151,4 +162,5 @@
             });
         });
     </script>
+
 }

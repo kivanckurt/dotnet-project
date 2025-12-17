@@ -2,6 +2,8 @@ using APP.Domain;
 using APP.Models;
 using APP.Services;
 using CORE.APP.Services;
+using CORE.APP.Services.Authentication.MVC;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,18 @@ builder.Services.AddDbContext<DbContext, Db>(options => options.UseSqlite(connec
 builder.Services.AddScoped<IService<GroupRequest, GroupResponse>, GroupService>();
 builder.Services.AddScoped<IService<RoleRequest, RoleResponse>, RoleService>();
 builder.Services.AddScoped<IService<UserRequest, UserResponse>, UserService>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICookieAuthService, CookieAuthService>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login"; // changed from /Users/Login to /Login since route was changed for the action
+        options.AccessDeniedPath = "/Login"; // changed from /Users/Login to /Login since route was changed for the action
+        options.ExpireTimeSpan = TimeSpan.FromHours(1);
+        options.SlidingExpiration = true;
+    });
+
 
 
 
@@ -34,6 +48,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
+
 
 app.UseAuthorization();
 

@@ -1,13 +1,18 @@
 ﻿#nullable disable
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using CORE.APP.Services;
 using APP.Models;
+using CORE.APP.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 // Generated from Custom MVC Template.
 
 namespace MVC.Controllers
 {
+    // Way 1:
+    //[Authorize(Roles = "Admin,User")] // Only authenticated users with Admin or User role can execute all of the actions of this controller.
+    // Way 2:
+    [Authorize] // Only authenticated users can execute all of the actions of this controller.
+                // Since we have only 2 roles Admin and User, we can use Authorize to check auhenticated users without defining roles.
     public class GroupsController : Controller
     {
         // Service injections:
@@ -17,10 +22,10 @@ namespace MVC.Controllers
         //private readonly IService<EntityRequest, EntityResponse> _EntityService;
 
         public GroupsController(
-			IService<GroupRequest, GroupResponse> groupService
+            IService<GroupRequest, GroupResponse> groupService
 
-            /* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. */
-            //, IService<EntityRequest, EntityResponse> EntityService
+        /* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. */
+        //, IService<EntityRequest, EntityResponse> EntityService
         )
         {
             _groupService = groupService;
@@ -37,7 +42,7 @@ namespace MVC.Controllers
             */
 
             // Related items service logic to set ViewData (Id and Name parameters may need to be changed in the SelectList constructor according to the model):
-            
+
             /* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. */
             //ViewBag.EntityIds = new MultiSelectList(_EntityService.List(), "Id", "Name");
         }
@@ -52,6 +57,8 @@ namespace MVC.Controllers
         }
 
         // GET: Groups
+        //[AllowAnonymous] // Can be used to allow authenticated and unauthenticated users (everyone) to execute this action.
+        // Overrides the Authorize defined for the controller.
         public IActionResult Index()
         {
             // Get collection service logic:
@@ -60,6 +67,7 @@ namespace MVC.Controllers
         }
 
         // GET: Groups/Details/5
+        // Only authenticated users (since Authorize is defined at the controller level) can execute this action.
         public IActionResult Details(int id)
         {
             // Get item service logic:
@@ -68,6 +76,8 @@ namespace MVC.Controllers
         }
 
         // GET: Groups/Create
+        [Authorize(Roles = "Admin")] // Only authenticated users with role Admin can execute this action.
+                                     // Overrides the Authorize defined for the controller.
         public IActionResult Create()
         {
             SetViewData(); // set ViewData dictionary to carry extra data other than the model to the view
@@ -76,6 +86,8 @@ namespace MVC.Controllers
 
         // POST: Groups/Create
         [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")] // Only authenticated users with role Admin can execute this action.
+                                     // Overrides the Authorize defined for the controller.
         public IActionResult Create(GroupRequest @group)
         {
             if (ModelState.IsValid) // check data annotation validation errors in the request
@@ -94,6 +106,8 @@ namespace MVC.Controllers
         }
 
         // GET: Groups/Edit/5
+        [Authorize(Roles = "Admin")] // Only authenticated users with role Admin can execute this action.
+                                     // Overrides the Authorize defined for the controller.
         public IActionResult Edit(int id)
         {
             // Get item to edit service logic:
@@ -104,6 +118,8 @@ namespace MVC.Controllers
 
         // POST: Groups/Edit
         [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")] // Only authenticated users with role Admin can execute this action.
+                                     // Overrides the Authorize defined for the controller.
         public IActionResult Edit(GroupRequest @group)
         {
             if (ModelState.IsValid) // check data annotation validation errors in the request
@@ -122,6 +138,8 @@ namespace MVC.Controllers
         }
 
         // GET: Groups/Delete/5
+        [Authorize(Roles = "Admin")] // Only authenticated users with role Admin can execute this action.
+                                     // Overrides the Authorize defined for the controller.
         public IActionResult Delete(int id)
         {
             // Get item to delete service logic:
@@ -131,6 +149,8 @@ namespace MVC.Controllers
 
         // POST: Groups/Delete
         [HttpPost, ValidateAntiForgeryToken, ActionName("Delete")]
+        [Authorize(Roles = "Admin")] // Only authenticated users with role Admin can execute this action.
+                                     // Overrides the Authorize defined for the controller.
         public IActionResult DeleteConfirmed(int id)
         {
             // Delete item service logic:

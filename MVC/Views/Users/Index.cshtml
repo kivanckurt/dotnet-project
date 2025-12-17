@@ -37,7 +37,10 @@
                     @Model.Count() record(s) found.
                 </div>
                 <div class="col-2 text-end">
-                    <a asp-action="Create">Create</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Create">Create</a>
+                    }
                 </div>
             </div>
             <table class="table table-striped table-hover">
@@ -47,59 +50,47 @@
                             @Html.DisplayNameFor(model => model.UserName)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.FullName)
+                            @Html.DisplayNameFor(model => model.RegistrationDateF)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Gender)
+                            @Html.DisplayNameFor(model => model.IsActiveF)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.BirthDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.RegistrationDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Score)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.IsActive)
+                            @Html.DisplayNameFor(model => model.Group)
                         </th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-		            @foreach (var item in Model) {
-				        <tr>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.UserName)
-					        </td>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
                             <td>
-						        @Html.DisplayFor(modelItem => item.FullName)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.GenderF)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.BirthDateF)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.RegistrationDateF)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.ScoreF)
-					        </td>
-					        <td>
-						        @Html.DisplayFor(modelItem => item.IsActiveF)
-					        </td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RegistrationDateF)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsActiveF)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Group)
+                            </td>
+                            <td class="text-end w-25">
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                        
+                                    @:&nbsp;|&nbsp;
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
 
-	
-					        <td class="text-end w-25">
-						        <a asp-action="Details" asp-route-id="@item.Id">Details</a>&nbsp;|&nbsp;
-						        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>&nbsp;|&nbsp;
-						        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-					        </td>
-				        </tr>
-		            }
+                                    @:&nbsp;|&nbsp;
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                }
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

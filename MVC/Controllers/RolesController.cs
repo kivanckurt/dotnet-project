@@ -1,13 +1,15 @@
 ﻿#nullable disable
+using APP.Models;
+using CORE.APP.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using CORE.APP.Services;
-using APP.Models;
 
 // Generated from Custom MVC Template.
 
 namespace MVC.Controllers
 {
+    [Authorize(Roles = "Admin")] // Only authenticated users with role Admin can execute all of the actions of this controller.
     public class RolesController : Controller
     {
         // Service injections:
@@ -17,10 +19,10 @@ namespace MVC.Controllers
         //private readonly IService<EntityRequest, EntityResponse> _EntityService;
 
         public RolesController(
-			IService<RoleRequest, RoleResponse> roleService
+            IService<RoleRequest, RoleResponse> roleService
 
-            /* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. */
-            //, IService<EntityRequest, EntityResponse> EntityService
+        /* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. */
+        //, IService<EntityRequest, EntityResponse> EntityService
         )
         {
             _roleService = roleService;
@@ -37,7 +39,7 @@ namespace MVC.Controllers
             */
 
             // Related items service logic to set ViewData (Id and Name parameters may need to be changed in the SelectList constructor according to the model):
-            
+
             /* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. */
             //ViewBag.EntityIds = new MultiSelectList(_EntityService.List(), "Id", "Name");
         }

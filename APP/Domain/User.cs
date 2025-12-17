@@ -7,13 +7,7 @@ using System.Linq;
 
 namespace APP.Domain
 {
-    public enum Gender
-    {
-        NotSpecified,
-        Male,
-        Female,
-        Other
-    }
+    
 
     public class User : Entity
     {
@@ -30,7 +24,7 @@ namespace APP.Domain
         [StringLength(100)]
         public string LastName { get; set; }
 
-        public Gender Gender { get; set; }
+        public Genders Gender { get; set; }
 
         public DateTime? BirthDate { get; set; }
 
@@ -43,11 +37,6 @@ namespace APP.Domain
         [StringLength(500)]
         public string Address { get; set; }
 
-        // --- Foreign Keys ---
-
-        public int? CountryId { get; set; }
-
-        public int? CityId { get; set; }
         public int? GroupId { get; set; }
 
         public Group Group { get; set; }

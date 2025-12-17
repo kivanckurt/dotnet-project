@@ -37,15 +37,24 @@
                 @Html.DisplayNameFor(model => model.UserName)
             </div>
             <div class="col-10">
-                @Model.UserName
+                @Html.DisplayFor(model => model.UserName)
             </div>
         </div>
+        <div class="row mb-3">
+            <div class="col-2 fw-bold">
+                @Html.DisplayNameFor(model => model.Password)
+            </div>
+            <div class="col-10">
+                @Html.DisplayFor(model => model.Password)
+            </div>
+        </div>
+        @* Instead of seperate first name and last name, full name is used *@
         <div class="row mb-3">
             <div class="col-2 fw-bold">
                 @Html.DisplayNameFor(model => model.FullName)
             </div>
             <div class="col-10">
-                @Model.FullName
+                @Html.DisplayFor(model => model.FullName)
             </div>
         </div>
         <div class="row mb-3">
@@ -53,7 +62,7 @@
                 @Html.DisplayNameFor(model => model.GenderF)
             </div>
             <div class="col-10">
-                @Model.GenderF
+                @Html.DisplayFor(model => model.GenderF)
             </div>
         </div>
         <div class="row mb-3">
@@ -61,7 +70,7 @@
                 @Html.DisplayNameFor(model => model.BirthDateF)
             </div>
             <div class="col-10">
-                @Model.BirthDateF
+                @Html.DisplayFor(model => model.BirthDateF)
             </div>
         </div>
         <div class="row mb-3">
@@ -69,7 +78,7 @@
                 @Html.DisplayNameFor(model => model.RegistrationDateF)
             </div>
             <div class="col-10">
-                @Model.RegistrationDateF
+                @Html.DisplayFor(model => model.RegistrationDateF)
             </div>
         </div>
         <div class="row mb-3">
@@ -77,7 +86,7 @@
                 @Html.DisplayNameFor(model => model.ScoreF)
             </div>
             <div class="col-10">
-                @Model.ScoreF
+                @Html.DisplayFor(model => model.ScoreF)
             </div>
         </div>
         <div class="row mb-3">
@@ -85,7 +94,7 @@
                 @Html.DisplayNameFor(model => model.IsActiveF)
             </div>
             <div class="col-10">
-                @Model.IsActiveF
+                @Html.DisplayFor(model => model.IsActiveF)
             </div>
         </div>
         <div class="row mb-3">
@@ -93,30 +102,31 @@
                 @Html.DisplayNameFor(model => model.Address)
             </div>
             <div class="col-10">
-                @Model.Address
+                @Html.DisplayFor(model => model.Address)
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-2 fw-bold">
-                @Html.DisplayNameFor(model => model.GroupTitle)
+                @Html.DisplayNameFor(model => model.Group)
             </div>
             <div class="col-10">
-                @Model.GroupTitle
+                @Html.DisplayFor(model => model.Group)
             </div>
         </div>
 
+
         @* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. 
     Raw HTML Helper is used in case string parameter may have HTML tags. *@
-        @*
-    <div class="row mb-3">
-        <div class="col-2 fw-bold">
-            <b>@Html.DisplayNameFor(model => model.Entitys)</b>
+
+        <div class="row mb-3">
+            <div class="col-2 fw-bold">
+                <b>@Html.DisplayNameFor(model => model.Roles)</b>
+            </div>
+            <div class="col-10">
+              
+                @string.Join(", ", Model.Roles)
+            </div>
         </div>
-        <div class="col-10">
-            @Html.Raw(Model.Entitys)
-        </div>
-    </div>
-    *@
 
         <hr />
         <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>&nbsp;|&nbsp;
