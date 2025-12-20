@@ -16,6 +16,9 @@ builder.Services.AddDbContext<DbContext, Db>(options => options.UseSqlite(connec
 builder.Services.AddScoped<IService<GroupRequest, GroupResponse>, GroupService>();
 builder.Services.AddScoped<IService<RoleRequest, RoleResponse>, RoleService>();
 builder.Services.AddScoped<IService<UserRequest, UserResponse>, UserService>();
+builder.Services.AddScoped<IService<BlogRequest, BlogResponse>, BlogService>();
+builder.Services.AddScoped<IService<TagRequest, TagResponse>, TagService>();
+
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICookieAuthService, CookieAuthService>();

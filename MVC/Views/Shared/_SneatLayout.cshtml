@@ -76,35 +76,31 @@
                     <li class="menu-header small text-uppercase">
                         <span class="menu-header-text">Menu</span>
                     </li>
-                    <li class="menu-item">
-                        <a asp-area="" asp-action="Index" asp-controller="Stores" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-store"></i>
-                            <div class="text-truncate">Stores</div>
-                        </a>
-                    </li>
-                    
+                    @if (User.IsInRole("Admin"))
+                    {
                         <li class="menu-item">
-                            <a asp-area="" asp-action="Index" asp-controller="Products" class="menu-link">
+                            <a asp-area="" asp-action="Index" asp-controller="Blogs" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
-                                <div class="text-truncate">Products</div>
+                                <div class="text-truncate">Blogs</div>
                             </a>
                         </li>
-                       
-                            <li class="menu-item">
-                                <a asp-area="" asp-action="Index" asp-controller="Categories" class="menu-link">
-                                    <i class="menu-icon tf-icons bx bx-list-ul"></i>
-                                    <div class="text-truncate">Categories</div>
-                                </a>
-                            </li>
-                        
-                    
+
+                        <li class="menu-item">
+                            <a asp-area="" asp-action="Index" asp-controller="Tags" class="menu-link">
+                                <i class="menu-icon tf-icons bx bx-list-ul"></i>
+                                <div class="text-truncate">Tags</div>
+                            </a>
+                        </li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
                         <li class="menu-item">
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons bx bxs-user-account"></i>
                                 <div class="text-truncate">Accounts</div>
                             </a>
-                             @if (User.Identity.IsAuthenticated)
-                        {
+
                             <ul class="menu-sub">
                                 <li class="menu-item">
                                     <a asp-area="" asp-action="Index" asp-controller="Users" class="menu-link">
@@ -118,35 +114,18 @@
                                 </li>
                                 @if (User.IsInRole("Admin"))
                                 {
-                                <li class="menu-item">
-                                    <a asp-area="" asp-action="Index" asp-controller="Roles" class="menu-link">
-                                        <div class="text-truncate">Roles</div>
-                                    </a>
-                                </li>
+                                    <li class="menu-item">
+                                        <a asp-area="" asp-action="Index" asp-controller="Roles" class="menu-link">
+                                            <div class="text-truncate">Roles</div>
+                                        </a>
+                                    </li>
                                 }
 
                             </ul>
-                        }
-                    </li>
-                       
-                            <li class="menu-item">
-                                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                    <i class="menu-icon tf-icons bx bxs-map"></i>
-                                    <div class="text-truncate">Locations</div>
-                                </a>
-                                <ul class="menu-sub">
-                                    <li class="menu-item">
-                                        <a asp-area="" asp-action="Index" asp-controller="Countries" class="menu-link">
-                                            <div class="text-truncate">Countries</div>
-                                        </a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a asp-area="" asp-action="Index" asp-controller="Cities" class="menu-link">
-                                            <div class="text-truncate">Cities</div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+
+                        </li>
+                    }
+
                         
                 </ul>
             </aside>
