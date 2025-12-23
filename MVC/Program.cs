@@ -3,6 +3,7 @@ using APP.Models;
 using APP.Services;
 using CORE.APP.Services;
 using CORE.APP.Services.Authentication.MVC;
+using CORE.APP.Services.Session.MVC;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the IoC container.
 var connectionString = builder.Configuration.GetConnectionString(nameof(Db));
 builder.Services.AddDbContext<DbContext, Db>(options => options.UseSqlite(connectionString));
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 //builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<IService<GroupRequest, GroupResponse>, GroupService>();
@@ -18,6 +21,8 @@ builder.Services.AddScoped<IService<RoleRequest, RoleResponse>, RoleService>();
 builder.Services.AddScoped<IService<UserRequest, UserResponse>, UserService>();
 builder.Services.AddScoped<IService<BlogRequest, BlogResponse>, BlogService>();
 builder.Services.AddScoped<IService<TagRequest, TagResponse>, TagService>();
+builder.Services.AddScoped<SessionServiceBase, SessionService>();
+builder.Services.AddScoped<IBlogSessionService, BlogSessionService>();
 
 
 builder.Services.AddHttpContextAccessor();
@@ -51,6 +56,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 app.UseAuthentication();
 
 

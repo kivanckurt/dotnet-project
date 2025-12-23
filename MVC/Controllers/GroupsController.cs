@@ -57,7 +57,7 @@ namespace MVC.Controllers
         }
 
         // GET: Groups
-        //[AllowAnonymous] // Can be used to allow authenticated and unauthenticated users (everyone) to execute this action.
+        [AllowAnonymous] // Can be used to allow authenticated and unauthenticated users (everyone) to execute this action.
         // Overrides the Authorize defined for the controller.
         public IActionResult Index()
         {

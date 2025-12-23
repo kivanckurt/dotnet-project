@@ -76,7 +76,7 @@
                     <li class="menu-header small text-uppercase">
                         <span class="menu-header-text">Menu</span>
                     </li>
-                    @if (User.IsInRole("Admin"))
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <li class="menu-item">
                             <a asp-area="" asp-action="Index" asp-controller="Blogs" class="menu-link">
@@ -84,7 +84,9 @@
                                 <div class="text-truncate">Blogs</div>
                             </a>
                         </li>
-
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
                         <li class="menu-item">
                             <a asp-area="" asp-action="Index" asp-controller="Tags" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-list-ul"></i>

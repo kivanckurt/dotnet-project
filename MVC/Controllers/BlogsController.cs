@@ -1,5 +1,6 @@
 ﻿#nullable disable
 using APP.Models;
+using APP.Services;
 using CORE.APP.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +10,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MVC.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class BlogsController : Controller
     {
         // Service injections:
         private readonly IService<BlogRequest, BlogResponse> _blogService;
         private readonly IService<UserRequest, UserResponse> _userService;
+        private readonly IBlogSessionService _blogSessionService;
 
         /* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. */
         private readonly IService<TagRequest, TagResponse> _tagService;
@@ -22,16 +24,21 @@ namespace MVC.Controllers
         public BlogsController(
 			IService<BlogRequest, BlogResponse> blogService
             , IService<UserRequest, UserResponse> userService
-
-            /* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. */
             , IService<TagRequest, TagResponse> tagService
+            , IBlogSessionService blogSessionService
         )
         {
             _blogService = blogService;
             _userService = userService;
+            _blogSessionService = blogSessionService;
 
             /* Can be uncommented and used for many to many relationships, "entity" may be replaced with the related entity name in the controller and views. */
             _tagService = tagService;
+        }
+
+        private int GetUserId()
+        {
+            return Convert.ToInt32(User.Claims.SingleOrDefault(c => c.Type == "Id")?.Value);
         }
 
         private void SetViewData()
@@ -61,7 +68,6 @@ namespace MVC.Controllers
         }
 
         // GET: Blogs
-        [AllowAnonymous]
         public IActionResult Index()
         {
             // Get collection service logic:
@@ -81,19 +87,31 @@ namespace MVC.Controllers
         public IActionResult Create()
         {
             SetViewData(); // set ViewData dictionary to carry extra data other than the model to the view
-            return View(); // return Create view with no model
+            var draft = _blogSessionService.GetDraft(GetUserId(), null);
+            return View(draft); // return Create view with draft or no model
         }
 
         // POST: Blogs/Create
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Create(BlogRequest blog)
+        public IActionResult Create(BlogRequest blog, string saveAction)
         {
+            var userId = GetUserId();
+            if (saveAction == "SaveDraft")
+            {
+                _blogSessionService.SaveDraft(userId, blog);
+                SetTempData("Draft saved.");
+                ModelState.Clear();
+                SetViewData();
+                return View(blog);
+            }
+
             if (ModelState.IsValid) // check data annotation validation errors in the request
             {
                 // Insert item service logic:
                 var response = _blogService.Create(blog);
                 if (response.IsSuccessful)
                 {
+                    _blogSessionService.ClearDraft(userId, null);
                     SetTempData(response.Message); // set TempData dictionary to carry the message to the redirected action's view
                     return RedirectToAction(nameof(Details), new { id = response.Id }); // redirect to Details action with id parameter as response.Id route value
                 }
@@ -107,21 +125,34 @@ namespace MVC.Controllers
         public IActionResult Edit(int id)
         {
             // Get item to edit service logic:
-            var item = _blogService.Edit(id);
+            var userId = GetUserId();
+            var draft = _blogSessionService.GetDraft(userId, id);
+            var item = draft ?? _blogService.Edit(id);
             SetViewData(); // set ViewData dictionary to carry extra data other than the model to the view
             return View(item); // return request as model to the Edit view
         }
 
         // POST: Blogs/Edit
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Edit(BlogRequest blog)
+        public IActionResult Edit(BlogRequest blog, string saveAction)
         {
+            var userId = GetUserId();
+            if (saveAction == "SaveDraft")
+            {
+                _blogSessionService.SaveDraft(userId, blog);
+                SetTempData("Draft saved.");
+                ModelState.Clear();
+                SetViewData();
+                return View(blog);
+            }
+
             if (ModelState.IsValid) // check data annotation validation errors in the request
             {
                 // Update item service logic:
                 var response = _blogService.Update(blog);
                 if (response.IsSuccessful)
                 {
+                    _blogSessionService.ClearDraft(userId, blog.Id);
                     SetTempData(response.Message); // set TempData dictionary to carry the message to the redirected action's view
                     return RedirectToAction(nameof(Details), new { id = response.Id }); // redirect to Details action with id parameter as response.Id route value
                 }
@@ -144,6 +175,8 @@ namespace MVC.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             // Delete item service logic:
+            var userId = GetUserId();
+            _blogSessionService.ClearDraft(userId, id);
             var response = _blogService.Delete(id);
             SetTempData(response.Message); // set TempData dictionary to carry the message to the redirected action's view
             return RedirectToAction(nameof(Index)); // redirect to the Index action
