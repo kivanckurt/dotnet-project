@@ -18,7 +18,7 @@ public class BlogRequest : Request
     public string Content { get; set; }
 
     public decimal? Rating { get; set; }
-
+    [DisplayName("Publish Date")]
     public DateTime? PublishDate { get; set; }
 
     [DisplayName("Tags")]
