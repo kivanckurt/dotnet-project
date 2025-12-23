@@ -3,6 +3,75 @@
 *@
 @{
 }
-<div>
-    <a href="/Groups">Groups</a> directory is working only
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+        <div class="col-lg-12 mb-4 order-0">
+            <div class="card">
+                <div class="d-flex align-items-end row">
+                    <div class="col-sm-7">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">Welcome to Your Dashboard! 🚀</h5>
+                            <p class="mb-4">
+                                You have successfully logged into the system. This application is built using
+                                <span class="fw-bold">ASP.NET Core MVC</span> and the <span class="fw-bold">Sneat</span> template
+                                to provide a robust management experience.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="fw-bold py-3 mb-4" id="features"><span class="text-muted fw-light">Project /</span> Core Features</h4>
+
+    <div class="row">
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="badge bg-label-primary p-3 mb-3 rounded"><i class="bx bx-shield-quarter fs-3"></i></div>
+                    <h5 class="card-title">Security</h5>
+                    <p class="card-text small">Built-in <strong>Authentication & Authorization</strong> to keep your data secure.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="badge bg-label-info p-3 mb-3 rounded"><i class="bx bx-user-check fs-3"></i></div>
+                    <h5 class="card-title">Permissions</h5>
+                    <p class="card-text small">Advanced <strong>Role-Based Access Control (RBAC)</strong> for granular user management.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="badge bg-label-success p-3 mb-3 rounded"><i class="bx bx-code-alt fs-3"></i></div>
+                    <h5 class="card-title">Architecture</h5>
+                    <p class="card-text small">All <strong>Views are generated using MVC Templates</strong> for clean, scalable code.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="badge bg-label-warning p-3 mb-3 rounded"><i class="bx bx-time-five fs-3"></i></div>
+                    <h5 class="card-title">Blog Drafts</h5>
+                    <p class="card-text small">Drafts are <strong>stored in session</strong>, allowing for seamless later editing.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
